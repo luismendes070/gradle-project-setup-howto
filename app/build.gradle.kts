@@ -25,6 +25,33 @@ dependencies {
     testImplementation(libs.junit.jupiter.api)
 
     testEndToEndApi(libs.junit.jupiter.api)
-    testEndToEndImplementation(projects.app) { capabilities { requireCapability("${project.group}:$name-mock-api") } }
+    // testEndToEndImplementation(projects.app) { capabilities { requireCapability("${project.group}:$name-mock-api") } }
+
+    // Ensure you have a dependency on the JUnit platform or other test frameworks if required
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.7.1")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.7.1")
+
     testEndToEndImplementation(libs.guava)
 }
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(21))
+    }
+}
+
+subprojects {
+    java {
+        toolchain {
+            languageVersion.set(JavaLanguageVersion.of(17))
+        }
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+
